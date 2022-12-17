@@ -2,18 +2,18 @@ package com.hit.dm;
 
 public class SudokuTemplate {
 	
-	private Long id;
+	private String id;
 	private String difficulty;
 	private int[][] matrix;
 
-	public SudokuTemplate(Long id, int[][] matrix, String difficulty) {
+	public SudokuTemplate(String id, int[][] matrix, String difficulty) {
 		super();
 		this.id = id;
 		this.matrix = matrix;
 		this.difficulty = difficulty;		
 	}
 	
-	public Long getId() {
+	public String getId() {
 		return this.id;
 	}
 	
@@ -25,7 +25,7 @@ public class SudokuTemplate {
 		return this.difficulty;
 	}
 	
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 		
