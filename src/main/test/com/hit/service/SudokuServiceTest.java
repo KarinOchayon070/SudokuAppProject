@@ -1,5 +1,6 @@
 package com.hit.service;
 
+import com.hit.algorithm.BitMaskAlgo;
 import com.hit.algorithm.DFSAlgo;
 import com.hit.dao.SudokuTemplatesFileDao;
 import com.hit.dm.SudokuTemplate;
@@ -8,6 +9,7 @@ import org.junit.Test;
 
 public class SudokuServiceTest {
 	
+
 	static String gridId;
 	
 	public static boolean isBothGridsTheSame(int solvedByAlg[][], int solvedGrid[][]) {
@@ -52,10 +54,11 @@ public class SudokuServiceTest {
 		
 		
 		DFSAlgo dfsAlgo = new DFSAlgo();	
+		BitMaskAlgo bitMaskAlgo = new BitMaskAlgo();
 		
 		//Creating new instance of my sudoku's service - notice that I implements the DFS algorithm 
 		//instead of the IBacktracing interface.
-		SudokuService sudokuService = new SudokuService(dfsAlgo, new SudokuTemplatesFileDao());
+		SudokuService sudokuService = new SudokuService(bitMaskAlgo, new SudokuTemplatesFileDao());
 		SudokuTemplate sudokuTemplate = new SudokuTemplate(grid);
 		sudokuService.solveSudoku(sudokuTemplate);
 		gridId = sudokuTemplate.getId();
@@ -77,8 +80,7 @@ public class SudokuServiceTest {
 				{ 0, 0, 0, 0, 0, 0, 0, 7, 4 },
 				{ 0, 0, 5, 2, 0, 6, 3, 3, 0 } };
 		
-		
-		
+
 		DFSAlgo dfsAlgo = new DFSAlgo();	
 		SudokuService sudokuService = new SudokuService(dfsAlgo, new SudokuTemplatesFileDao());
 		SudokuTemplate sudokuTemplate = new SudokuTemplate(grid);
@@ -89,6 +91,7 @@ public class SudokuServiceTest {
 	@Test
 	public void getTemplateByDifficullty() {
 		DFSAlgo dfsAlgo = new DFSAlgo();	
+		BitMaskAlgo bitMaskAlgo = new BitMaskAlgo();
 		SudokuService sudokuService = new SudokuService(dfsAlgo, new SudokuTemplatesFileDao());
 		SudokuTemplate sudokuTemplate = sudokuService.getTemplateByDifficulty("Easy");
 		Assert.assertEquals(sudokuTemplate.getDifficulty(), "Easy");
@@ -98,6 +101,7 @@ public class SudokuServiceTest {
 	public void getTemplateById() {
 		
 		DFSAlgo dfsAlgo = new DFSAlgo();	
+		BitMaskAlgo bitMaskAlgo = new BitMaskAlgo();
 		SudokuService sudokuService = new SudokuService(dfsAlgo, new SudokuTemplatesFileDao());
 		SudokuTemplate sudokuTemplate = sudokuService.getTemplateById(gridId);
 		Assert.assertEquals(sudokuTemplate.getId(), gridId);
@@ -107,6 +111,7 @@ public class SudokuServiceTest {
 	public void deleteTemplateById() {
 		
 		DFSAlgo dfsAlgo = new DFSAlgo();	
+		BitMaskAlgo bitMaskAlgo = new BitMaskAlgo();
 		SudokuService sudokuService = new SudokuService(dfsAlgo, new SudokuTemplatesFileDao());
 		sudokuService.delete(gridId);
 		SudokuTemplate sudokuTemplate = sudokuService.getTemplateById(gridId);
