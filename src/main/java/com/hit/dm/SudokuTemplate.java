@@ -1,24 +1,25 @@
 package com.hit.dm;
 
-public class SudokuTemplate {
+import java.io.Serializable;
+
+public class SudokuTemplate implements Serializable {
 	
+//	private static final long serialVersionUID = 1L;
 	private String id;
 	private String difficulty;
-	private int[][] matrix;
+	private int[][] grid;
 
-	public SudokuTemplate(String id, int[][] matrix, String difficulty) {
+	public SudokuTemplate(int[][] grid) {
 		super();
-		this.id = id;
-		this.matrix = matrix;
-		this.difficulty = difficulty;		
+		this.grid = grid;
 	}
 	
 	public String getId() {
 		return this.id;
 	}
 	
-	public int[][] getMatrix() {
-		return this.matrix;
+	public int[][] getGrid() {
+		return this.grid;
 	}
 	
 	public String getDifficulty() {
@@ -29,8 +30,8 @@ public class SudokuTemplate {
 		this.id = id;
 	}
 		
-	public void setMatrix(int[][] matrix) {
-		this.matrix = matrix;
+	public void setGrid(int[][] grid) {
+		this.grid = grid;
 	}
 	
 	public void setDifficulty(String difficulty) {
