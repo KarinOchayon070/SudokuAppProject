@@ -11,5 +11,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/sudokuAlgoJar.jar"/>
+	<classpathentry kind="lib" path="C:/Users/karin/Downloads/gson-2.6.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
