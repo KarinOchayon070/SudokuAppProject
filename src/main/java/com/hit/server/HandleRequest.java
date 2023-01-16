@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 
 public class HandleRequest implements Runnable{
+	
 	Socket socket;
 	Scanner reader;
     PrintWriter writer;
@@ -21,7 +22,7 @@ public class HandleRequest implements Runnable{
         this.socket = socket;
         reader = new Scanner((new InputStreamReader(socket.getInputStream())));
         writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-        }
+    }
 
     @Override
     public void run(){
@@ -52,11 +53,12 @@ public class HandleRequest implements Runnable{
                 writer.println(gson.toJson(response));
                 writer.flush();
             }
+            //Must close streams after using
             writer.close();
             reader.close();
             socket.close();
         } catch (IOException e){
-            System.out.println("Server error");
+            System.out.println("Server Error");
         }
     }
 

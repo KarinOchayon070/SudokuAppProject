@@ -12,12 +12,14 @@ public class Server {
 
     public static void main(String[] args) throws Exception {
         ExecutorService pool = Executors.newFixedThreadPool(100);
+        //server is up
         ServerSocket server = new ServerSocket(6000);
-        System.out.println("Server is alive");
+        System.out.println("Server Is Up");
         Socket request;
 
         while (isServerUp) {
             try {
+            	//I want my server to listen to clients requests
                 request = server.accept();
                 pool.execute(new HandleRequest(request));
 //                new Thread(new HandleRequest(client)).start();

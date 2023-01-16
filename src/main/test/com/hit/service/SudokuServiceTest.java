@@ -4,6 +4,14 @@ import com.hit.algorithm.BitMaskAlgo;
 import com.hit.algorithm.DFSAlgo;
 import com.hit.dao.SudokuTemplatesFileDao;
 import com.hit.dm.SudokuTemplate;
+
+import util.BackupAndRestore;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -116,5 +124,29 @@ public class SudokuServiceTest {
 		sudokuService.delete(gridId);
 		SudokuTemplate sudokuTemplate = sudokuService.getTemplateById(gridId);
 		Assert.assertNull(sudokuTemplate);
+	}
+	
+	@Test
+	public void backupTest() throws IOException, InterruptedException {
+		String filePath = System.getProperty("user.dir") + File.separator + "sudokuTemplates.txt";	
+		String copyFilePath = System.getProperty("user.dir") + File.separator + "sudokuTemplates_backup.txt";
+		
+		BackupAndRestore.backup(filePath, copyFilePath, 1000, 1000);
+		
+        Thread.sleep(3000);
+		
+        File testFile = new File(filePath);
+        File backUpTestFile = new File(copyFilePath);
+
+        Assert.assertEquals(new String(Files.readAllBytes(testFile.toPath()), StandardCharsets.UTF_8), new String(Files.readAllBytes(backUpTestFile.toPath()), StandardCharsets.UTF_8));
+	}
+	
+	@Test
+	public void restoreTest() {	
+		String filePath = System.getProperty("user.dir") + File.separator + "sudokuTemplates_backup.txt";
+        
+        String fileContent = BackupAndRestore.restore(filePath);
+        
+        Assert.assertNotNull(fileContent);
 	}
 }
