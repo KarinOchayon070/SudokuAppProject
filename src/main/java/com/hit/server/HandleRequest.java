@@ -33,19 +33,24 @@ public class HandleRequest implements Runnable{
             Response response = null;
 
             String command = request.getHeaders().get("action");
+
             switch (command) {
                 case "templateByDifficulty":{
                 	response = new Response(controller.getTemplateByDifficulty(request.getBody()));
+                	break;
                 }
                 case "templateByID": {
                     response = new Response(controller.getTemplateById(request.getBody()));
+                    break;
                 }
                 case "deleteByID": {
                 	controller.delete(request.getBody());
                     response = new Response();
+                    break;
                 }
                 case "solveSudoku": {
                     response = new Response(controller.solveSudoku(request.getBody()));
+                    break;
                 }
             }
             if(response != null) {

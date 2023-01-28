@@ -38,15 +38,20 @@ public class SudokuService{
 	//it doesnt exist, and the board is valid.
 	public boolean solveSudoku(SudokuTemplate sudokuTemplate) {	
 		this.algo.setGrid(sudokuTemplate.getGrid());
+		sudokuTemplate.setId(this.algo.getId());
 		
 		if(!this.algo.isValidGrid()) {
 			return false;
 		}
-		if(sudokuTemplate.getId() == null) {
+		
+		SudokuTemplate existingSudokuTemplate = sudokuTemplatesFileDao.get(sudokuTemplate.getId());
+		
+		if(existingSudokuTemplate == null) {
 			sudokuTemplate.setDifficulty(this.algo.getDifficulty());
-			sudokuTemplate.setId(this.algo.getId());
+
 			sudokuTemplatesFileDao.save(sudokuTemplate);
 		}
+		
 		this.algo.solve();
 		sudokuTemplate.setGrid(this.algo.getGrid());
 		

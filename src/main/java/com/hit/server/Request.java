@@ -6,20 +6,20 @@ import java.util.Map;
 public class Request {
 	
 	  private Map <String, String> headers;
-	    private Map <String, String> body;
+	    private Map <String, Object> body;
 
-	    public Request(Map<String, String> headers, Map <String, String> body) {
+	    public Request(Map<String, String> headers, Map <String, Object> body) {
 	        this.headers = headers;
 	        this.body = body;
 	    }
 
 
-	    public Map <String, String> getBody() {
+	    public Map <String, Object> getBody() {
 	        return body;
 	    }
 
 
-	    public void setBody(Map <String, String> body) {
+	    public void setBody(Map <String, Object> body) {
 	        this.body = body;
 	    }
 
