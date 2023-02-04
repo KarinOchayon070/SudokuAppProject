@@ -7,6 +7,8 @@ import com.hit.dm.SudokuTemplate;
 
 import util.BackupAndRestore;
 
+import static org.junit.Assert.assertThrows;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -38,7 +40,7 @@ public class SudokuServiceTest {
 
 	
 	@Test
-	public void solveAndInsertToDBNewTemplate() {
+	public void solveAndInsertToDBNewTemplate() throws Exception {
 		
 		int grid[][] = { { 3, 0, 6, 5, 0, 8, 4, 0, 0 },
 				{ 5, 2, 0, 0, 0, 0, 0, 0, 0 },
@@ -67,8 +69,7 @@ public class SudokuServiceTest {
 		//Creating new instance of my sudoku's service - notice that I implements the DFS algorithm 
 		//instead of the IBacktracing interface.
 		SudokuService sudokuService = new SudokuService(bitMaskAlgo, new SudokuTemplatesFileDao());
-		SudokuTemplate sudokuTemplate = new SudokuTemplate(grid);
-		sudokuService.solveSudoku(sudokuTemplate);
+		SudokuTemplate sudokuTemplate = sudokuService.solveSudoku(grid);
 		gridId = sudokuTemplate.getId();
 		
 		Assert.assertTrue(isBothGridsTheSame(solvedGrid, sudokuTemplate.getGrid()));
@@ -91,13 +92,13 @@ public class SudokuServiceTest {
 
 		DFSAlgo dfsAlgo = new DFSAlgo();	
 		SudokuService sudokuService = new SudokuService(dfsAlgo, new SudokuTemplatesFileDao());
-		SudokuTemplate sudokuTemplate = new SudokuTemplate(grid);
-		Assert.assertFalse(sudokuService.solveSudoku(sudokuTemplate));
+
+		assertThrows(Exception.class, () -> sudokuService.solveSudoku(grid));
 	}
 	
 	
 	@Test
-	public void getTemplateByDifficullty() {
+	public void getTemplateByDifficullty() throws Exception {
 		DFSAlgo dfsAlgo = new DFSAlgo();	
 		BitMaskAlgo bitMaskAlgo = new BitMaskAlgo();
 		SudokuService sudokuService = new SudokuService(dfsAlgo, new SudokuTemplatesFileDao());

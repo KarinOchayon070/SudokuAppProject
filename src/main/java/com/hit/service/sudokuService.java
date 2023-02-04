@@ -21,8 +21,14 @@ public class SudokuService{
 	
 	//The get function gets sudoku template by value - the value is the level of difficulty 
 	//of the sudoku.
-	public SudokuTemplate getTemplateByDifficulty(String difficulty) {
+	public SudokuTemplate getTemplateByDifficulty(String difficulty) throws Exception {
+		if(difficulty == null) {
+			throw new Exception("Must choose difficulty!");
+		}
+		
 		SudokuTemplate sudokuTemplate = sudokuTemplatesFileDao.getByValue(difficulty);
+		
+		
 		return sudokuTemplate;
 	}
 	
@@ -36,12 +42,14 @@ public class SudokuService{
 	
 	//The solveSudoku function checks if the sudoku template doens't exist in my database - if 
 	//it doesnt exist, and the board is valid.
-	public boolean solveSudoku(SudokuTemplate sudokuTemplate) {	
+	public SudokuTemplate solveSudoku(int[][] grid) throws Exception {	
+    	SudokuTemplate sudokuTemplate =  new SudokuTemplate(grid);
+
 		this.algo.setGrid(sudokuTemplate.getGrid());
 		sudokuTemplate.setId(this.algo.getId());
 		
 		if(!this.algo.isValidGrid()) {
-			return false;
+			throw new Exception("Invalid Board!");
 		}
 		
 		SudokuTemplate existingSudokuTemplate = sudokuTemplatesFileDao.get(sudokuTemplate.getId());
@@ -55,7 +63,7 @@ public class SudokuService{
 		this.algo.solve();
 		sudokuTemplate.setGrid(this.algo.getGrid());
 		
-		return true;
+		return sudokuTemplate;
 	}
 	
 	

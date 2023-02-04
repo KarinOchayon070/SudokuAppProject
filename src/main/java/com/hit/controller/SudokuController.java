@@ -16,14 +16,14 @@ public class SudokuController {
 	SudokuService service = new SudokuService(dfsAlgo, new SudokuTemplatesFileDao());
 
 
-    public SudokuTemplate getTemplateByDifficulty(Map<String,Object> body) {
+    public SudokuTemplate getTemplateByDifficulty(Map<String,Object> body) throws Exception {
     	String difficulty = (String) body.get("difficulty");
-    	
+  	
         return service.getTemplateByDifficulty(difficulty);
     }
 
 
-    public SudokuTemplate solveSudoku(Map<String,Object> body){ 	
+    public SudokuTemplate solveSudoku(Map<String,Object> body) throws Exception{ 	
     	List<List<Double>> gridList = (List<List<Double>>) body.get("grid");
     	int[][] grid = new int[gridList.size()][gridList.get(0).size()];
     	for (int i = 0; i < gridList.size(); i++) {
@@ -32,8 +32,7 @@ public class SudokuController {
     	    }
     	}
     	
-    	SudokuTemplate sudokuTemplate =  new SudokuTemplate(grid);
-    	service.solveSudoku(sudokuTemplate);
+    	SudokuTemplate sudokuTemplate = service.solveSudoku(grid);
     	
     	return sudokuTemplate;
     }

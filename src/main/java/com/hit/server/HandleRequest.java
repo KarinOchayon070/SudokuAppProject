@@ -62,8 +62,11 @@ public class HandleRequest implements Runnable{
             writer.close();
             reader.close();
             socket.close();
-        } catch (IOException e){
+        } catch (Exception e){
             System.out.println("Server Error");
+            Response response = new Response("Error: " + e.getMessage(), false);
+            writer.println(gson.toJson(response));
+            writer.flush();
         }
     }
 
