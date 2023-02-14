@@ -6,7 +6,7 @@ public interface Dao <V, T> {
 	
 	T get(V id);
 	
-	T getByValue(V value);
+	T getByValue(V value) throws Exception;
 		
 	void save(T t);
 	

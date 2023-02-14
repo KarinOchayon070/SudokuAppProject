@@ -50,7 +50,7 @@ public class SudokuTemplatesFileDao implements Dao<String, SudokuTemplate> {
 	//That it's difficulty is the same as the one I passed
 	//If it doesn't exist, return null
 	@Override
-	public SudokuTemplate getByValue(String difficulty) {
+	public SudokuTemplate getByValue(String difficulty) throws Exception {
 		//Making this list for randomly choose
 		List<SudokuTemplate> sameDifficultySudokuTemplates = new ArrayList<>();
 		try {
@@ -63,8 +63,12 @@ public class SudokuTemplatesFileDao implements Dao<String, SudokuTemplate> {
 				}
 			}
 			
+			if(sameDifficultySudokuTemplates.size() == 0) {
+				throw new Exception("No board with this difficulty");
+			}
+			
 			Random random = new Random();
-			int randomNumber = random.nextInt(sameDifficultySudokuTemplates.size() -1);
+			int randomNumber = random.nextInt(sameDifficultySudokuTemplates.size());
 			
 			objectInputStream.close();
 			
@@ -81,8 +85,19 @@ public class SudokuTemplatesFileDao implements Dao<String, SudokuTemplate> {
 	@Override 
 	public void save(SudokuTemplate sudokuTemplate) {
 			try {
-				ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(path));
-				List<SudokuTemplate> sudokuTemplates = (List<SudokuTemplate>) objectInputStream.readObject();
+				
+				List<SudokuTemplate> sudokuTemplates;
+				ObjectInputStream objectInputStream = null;
+				
+				try {
+					objectInputStream = new ObjectInputStream(new FileInputStream(path));
+					sudokuTemplates = (List<SudokuTemplate>) objectInputStream.readObject();
+				}
+				catch(Exception e) {
+		            sudokuTemplates = new ArrayList<>();
+				}
+				
+				
 				sudokuTemplates.add(sudokuTemplate);
 
 				ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(path));
@@ -90,7 +105,11 @@ public class SudokuTemplatesFileDao implements Dao<String, SudokuTemplate> {
 				
 				
 				objectOutputStream.close();
-				objectInputStream.close();
+				
+				if(objectInputStream != null) {
+					objectInputStream.close();	
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}	

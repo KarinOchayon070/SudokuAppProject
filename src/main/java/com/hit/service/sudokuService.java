@@ -71,8 +71,4 @@ public class SudokuService{
 	public void delete(String id) {
 		sudokuTemplatesFileDao.delete(id);			
 	}
-
-
-
-	
 }
