@@ -1,7 +1,7 @@
 Hi guys,
 
 In the third year of my computer studies degree, as part of an advanced Java development course, I developed a Java fx Sudoku application. This application is developed in a client-server architecture and has three different repositories:
-The algorithm repository   - https://github.com/KarinOchayon070/sudokuAlgorithm.
+The algorithm repository   - https://github.com/KarinOchayon070/SudokuAlgorithm.
 The server side repository - https://github.com/KarinOchayon070/SudokuServer.
 The client side repository - https://github.com/KarinOchayon070/SudokuClient.
 
