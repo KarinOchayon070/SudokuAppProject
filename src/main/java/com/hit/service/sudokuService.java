@@ -4,16 +4,16 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.hit.algorithm.IBacktrackingAlg;
-import com.hit.dao.Dao;
+import com.hit.dao.IDao;
 import com.hit.dm.SudokuTemplate;
 
 
 public class SudokuService{
 	
 	IBacktrackingAlg algo;
-	Dao<String, SudokuTemplate> sudokuTemplatesFileDao;
+	IDao<String, SudokuTemplate> sudokuTemplatesFileDao;
 	
-	public SudokuService(IBacktrackingAlg algo, Dao<String, SudokuTemplate> sudokuTemplatesFileDao){
+	public SudokuService(IBacktrackingAlg algo, IDao<String, SudokuTemplate> sudokuTemplatesFileDao){
 		this.algo = algo;
 		this.sudokuTemplatesFileDao = sudokuTemplatesFileDao;
 	}
@@ -64,6 +64,12 @@ public class SudokuService{
 		sudokuTemplate.setGrid(this.algo.getGrid());
 		
 		return sudokuTemplate;
+	}
+	
+	public List<SudokuTemplate> getAllTemplates() {
+		List<SudokuTemplate> sudokuTemplates = sudokuTemplatesFileDao.getAll();
+		
+		return sudokuTemplates;
 	}
 	
 	

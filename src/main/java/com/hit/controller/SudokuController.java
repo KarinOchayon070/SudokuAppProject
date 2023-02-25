@@ -43,6 +43,11 @@ public class SudokuController {
         return service.getTemplateById(id);
     }
     
+    public List<SudokuTemplate> getAllTemplates(){
+    	
+        return service.getAllTemplates();
+    }
+    
     public void delete(Map<String,Object> body) {
     	String id = (String) body.get("id");
 

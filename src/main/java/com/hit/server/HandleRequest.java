@@ -35,6 +35,10 @@ public class HandleRequest implements Runnable{
             String command = request.getHeaders().get("action");
 
             switch (command) {
+            	case "getAllTemplates":{
+            		response = new Response(controller.getAllTemplates());
+            		break;
+            	}
                 case "templateByDifficulty":{
                 	response = new Response(controller.getTemplateByDifficulty(request.getBody()));
                 	break;

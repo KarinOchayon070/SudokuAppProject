@@ -12,7 +12,7 @@ import java.util.Random;
 
 import com.hit.dm.SudokuTemplate;
 
-public class SudokuTemplatesFileDao implements Dao<String, SudokuTemplate> {
+public class SudokuTemplatesFileDao implements IDao<String, SudokuTemplate> {
 	
 	String path = "sudokuTemplates.txt";
 
@@ -41,9 +41,30 @@ public class SudokuTemplatesFileDao implements Dao<String, SudokuTemplate> {
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
-		return null;
-		
+		return null;	
 	}
+	
+	
+	
+	@Override
+	public List<SudokuTemplate> getAll() {
+		
+		List<SudokuTemplate> sudokuTemplates;
+		try {
+			ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(path));
+
+			sudokuTemplates = (List<SudokuTemplate>) objectInputStream.readObject();
+
+			objectInputStream.close();
+			
+			return sudokuTemplates;
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;	
+	}
+	
 	
 	
 	//The getByValue function takes a level of difficulty and returns a sudoku's template
@@ -81,7 +102,6 @@ public class SudokuTemplatesFileDao implements Dao<String, SudokuTemplate> {
 				
 	
 	//The save function save given sudoku's template to the database (sudokuTemplates.txt)
-	//******************ask about this one - I probably should check if the id already exists******
 	@Override 
 	public void save(SudokuTemplate sudokuTemplate) {
 			try {
